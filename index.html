@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Any Page to MD — Convert Any Webpage to Clean Markdown | Chrome Extension</title>
+  <meta name="description" content="Free Chrome extension to convert any webpage to clean Markdown. One-click copy, save as .md file, Reader Mode, keyboard shortcuts, and more.">
+  <meta name="keywords" content="markdown, chrome extension, webpage to markdown, copy as markdown, reader mode, obsidian, notion, github, convert html to markdown">
+  <meta name="author" content="Any Page to MD">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://excitedlemon45.github.io/any-page-to-md/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Any Page to MD — Convert Any Webpage to Clean Markdown">
+  <meta property="og:description" content="Free Chrome extension to convert any webpage to clean Markdown. One-click copy, save as .md file, Reader Mode, keyboard shortcuts, and more.">
+  <meta property="og:url" content="https://excitedlemon45.github.io/any-page-to-md/">
+  <meta property="og:site_name" content="Any Page to MD">
+  <meta property="og:image" content="https://excitedlemon45.github.io/any-page-to-md/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Any Page to MD — Convert any webpage to clean Markdown with one click">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Any Page to MD — Convert Any Webpage to Clean Markdown">
+  <meta name="twitter:description" content="Free Chrome extension to convert any webpage to clean Markdown. One-click copy, save as .md file, Reader Mode, keyboard shortcuts, and more.">
+  <meta name="twitter:image" content="https://excitedlemon45.github.io/any-page-to-md/images/og-image.png">
+  <meta name="twitter:image:alt" content="Any Page to MD — Convert any webpage to clean Markdown with one click">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Schema.org: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Any Page to MD",
+    "description": "Convert any webpage to clean Markdown with one click. Copy to clipboard or save as file.",
+    "applicationCategory": "BrowserExtension",
+    "operatingSystem": "Chrome",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Organization",
+      "name": "Any Page to MD"
+    },
+    "featureList": [
+      "Convert webpage to Markdown",
+      "Reader Mode with Readability.js",
+      "Copy as Markdown or plain text",
+      "Save as .md or .txt file",
+      "Keyboard shortcut Ctrl+Shift+M",
+      "Right-click context menu",
+      "YAML frontmatter support",
+      "GFM table support",
+      "Format selector: Standard, Obsidian, Notion, GitHub",
+      "Conversion history",
+      "100% local processing"
+    ]
+  }
+  </script>
+
+  <!-- Schema.org: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Any Page to MD free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, Any Page to MD is completely free and open source."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Any Page to MD collect my data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All processing happens locally in your browser. No data is ever sent to any server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What formats does Any Page to MD support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard Markdown, Obsidian, Notion, and GitHub Flavored Markdown."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ========== 1. NAVIGATION BAR (sticky) ========== -->
+  <header class="site-header" id="site-header">
+    <nav class="nav-container" aria-label="Primary navigation">
+      <a href="index.html" class="nav-logo" aria-label="Any Page to MD — Home">
+        <svg class="nav-logo-icon" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <rect width="36" height="36" rx="8" fill="#6C3FE8"/>
+          <text x="18" y="24" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="16" fill="#FFFFFF">MD</text>
+        </svg>
+        <span class="nav-logo-text">Any Page to MD</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#formats" class="nav-link">Formats</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#privacy" class="nav-link">Privacy</a></li>
+      </ul>
+
+      <a href="#install" class="nav-cta btn btn-primary">Add to Chrome &mdash; It's Free</a>
+
+      <button class="nav-hamburger" id="nav-hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <ul class="mobile-nav-links">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#formats" class="nav-link">Formats</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="privacy.html" class="nav-link">Privacy</a></li>
+      </ul>
+      <a href="#install" class="nav-cta btn btn-primary">Add to Chrome &mdash; It's Free</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== 2. HERO SECTION ========== -->
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Convert Any Webpage to <strong>Clean Markdown</strong></h1>
+        <p class="hero-subtitle">One click. Copy or save. Works everywhere &mdash; Obsidian, Notion, GitHub, ChatGPT, and more.</p>
+
+        <div class="hero-buttons">
+          <a href="#install" class="btn btn-primary btn-lg hero-cta">
+            <svg class="btn-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <circle cx="11" cy="11" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="11" cy="11" r="4" fill="currentColor"/>
+              <path d="M11 1 A10 10 0 0 1 21 11" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M11 1 A10 10 0 0 0 1 11" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            Add to Chrome &mdash; Free
+          </a>
+          <a href="#github" class="hero-github-link">View on GitHub &rarr;</a>
+        </div>
+
+        <div class="hero-mockup">
+          <div class="mockup-window">
+            <div class="mockup-titlebar">
+              <span class="mockup-dot mockup-dot--red"></span>
+              <span class="mockup-dot mockup-dot--yellow"></span>
+              <span class="mockup-dot mockup-dot--green"></span>
+              <span class="mockup-title">Any Page to MD</span>
+            </div>
+            <div class="mockup-body">
+              <div class="typing-animation" id="typing-animation">
+                <span class="typing-text"></span>
+                <span class="typing-cursor"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trust-badges">
+          <span class="trust-badge">
+            <svg class="trust-badge-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 9l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            100% Free
+          </span>
+          <span class="trust-badge">
+            <svg class="trust-badge-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 9l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            No Data Collection
+          </span>
+          <span class="trust-badge">
+            <svg class="trust-badge-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 9l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Open Source
+          </span>
+          <span class="trust-badge">
+            <svg class="trust-badge-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <circle cx="9" cy="9" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M5 9l3 3 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            5-Star Rated
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. FEATURES SECTION ========== -->
+    <section class="features" id="features">
+      <div class="section-container">
+        <h2 class="section-title animate-on-scroll">Everything You Need</h2>
+
+        <div class="features-grid">
+
+          <!-- Feature 1: One-Click Copy -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="12" y="10" width="12" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="16" y="14" width="12" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">One-Click Copy</h3>
+            <p class="feature-desc">Click the icon, get clean Markdown on your clipboard instantly.</p>
+          </div>
+
+          <!-- Feature 2: Reader Mode -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="11" y="12" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="15" y1="17" x2="25" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="15" y1="21" x2="25" y2="21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="15" y1="25" x2="21" y2="25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Reader Mode</h3>
+            <p class="feature-desc">Powered by Mozilla Readability. Strips ads, nav bars, and clutter automatically.</p>
+          </div>
+
+          <!-- Feature 3: Save as File -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M14 12h8l6 6v10a2 2 0 01-2 2H14a2 2 0 01-2-2V14a2 2 0 012-2z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <polyline points="22,12 22,18 28,18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="20" y1="22" x2="20" y2="28" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <polyline points="17,25 20,28 23,25" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Save as File</h3>
+            <p class="feature-desc">Download as .md or .txt with one click. Perfect for archiving.</p>
+          </div>
+
+          <!-- Feature 4: Keyboard Shortcut -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="10" y="14" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="13" y="17" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="18" y="17" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="23" y="17" width="4" height="3" rx="0.5" stroke="currentColor" stroke-width="1" fill="none"/>
+                <rect x="14" y="22" width="12" height="2" rx="0.5" stroke="currentColor" stroke-width="1" fill="none"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Keyboard Shortcut</h3>
+            <p class="feature-desc">Press Ctrl+Shift+M to copy without even opening the popup.</p>
+          </div>
+
+          <!-- Feature 5: Right-Click Menu -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="13" y="11" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="16" y1="16" x2="24" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="16" y1="20" x2="24" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="16" y1="24" x2="24" y2="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Right-Click Menu</h3>
+            <p class="feature-desc">Right-click any page or selected text to convert on the spot.</p>
+          </div>
+
+          <!-- Feature 6: Smart Selection -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="12" y="14" width="16" height="12" rx="1" stroke="currentColor" stroke-width="1.5" fill="none" stroke-dasharray="3 2"/>
+                <line x1="15" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="15" y1="22" x2="22" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Smart Selection</h3>
+            <p class="feature-desc">Highlight text, convert just that. Perfect for grabbing specific sections.</p>
+          </div>
+
+          <!-- Feature 7: Format Selector -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="12" y="12" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="12" y1="20" x2="28" y2="20" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="20" y1="12" x2="20" y2="28" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Format Selector</h3>
+            <p class="feature-desc">Output tailored for Obsidian, Notion, GitHub, or standard Markdown.</p>
+          </div>
+
+          <!-- Feature 8: YAML Frontmatter -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="12" y1="13" x2="28" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="14" y1="17" x2="26" y2="17" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <line x1="14" y1="20" x2="24" y2="20" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <line x1="14" y1="23" x2="25" y2="23" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+                <line x1="12" y1="27" x2="28" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">YAML Frontmatter</h3>
+            <p class="feature-desc">Auto-add title, URL, date metadata. Perfect for Obsidian vaults.</p>
+          </div>
+
+          <!-- Feature 9: GFM Tables -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="11" y="12" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="11" y1="18" x2="29" y2="18" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="11" y1="23" x2="29" y2="23" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="18" y1="12" x2="18" y2="28" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">GFM Tables</h3>
+            <p class="feature-desc">HTML tables converted to clean GitHub-Flavored Markdown tables.</p>
+          </div>
+
+          <!-- Feature 10: Image Control -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="11" y="13" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="17" cy="18" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <polyline points="11,25 16,20 20,24 24,19 29,25" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Image Control</h3>
+            <p class="feature-desc">Toggle images on/off. All URLs resolved to absolute paths.</p>
+          </div>
+
+          <!-- Feature 11: Code Blocks -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <polyline points="15,15 10,20 15,25" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <polyline points="25,15 30,20 25,25" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="22" y1="13" x2="18" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">Code Blocks</h3>
+            <p class="feature-desc">Preserves syntax highlighting hints and fenced code blocks.</p>
+          </div>
+
+          <!-- Feature 12: History -->
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="20" cy="20" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <polyline points="20,15 20,20 24,22" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 14 L10 11 L13 11" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="feature-title">History</h3>
+            <p class="feature-desc">Last 10 conversions saved. Re-copy anytime from the history tab.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 4. HOW IT WORKS SECTION ========== -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="section-container">
+        <h2 class="section-title animate-on-scroll">How It Works</h2>
+
+        <div class="steps-row">
+
+          <!-- Step 1 -->
+          <div class="step animate-on-scroll">
+            <div class="step-number">1</div>
+            <div class="step-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="4" y="8" width="40" height="32" rx="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                <line x1="4" y1="16" x2="44" y2="16" stroke="currentColor" stroke-width="2"/>
+                <circle cx="10" cy="12" r="1.5" fill="currentColor"/>
+                <circle cx="15" cy="12" r="1.5" fill="currentColor"/>
+                <circle cx="20" cy="12" r="1.5" fill="currentColor"/>
+                <line x1="12" y1="22" x2="36" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="27" x2="32" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="32" x2="28" y2="32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Visit any webpage</h3>
+            <p class="step-desc">Navigate to any article, documentation page, blog post, or website you want to convert.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step animate-on-scroll">
+            <div class="step-number">2</div>
+            <div class="step-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="10" y="6" width="28" height="36" rx="4" stroke="currentColor" stroke-width="2" fill="none"/>
+                <rect x="14" y="12" width="20" height="4" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="14" y="20" width="20" height="4" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="14" y="28" width="20" height="4" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="14" y="34" width="10" height="4" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Click or press Ctrl+Shift+M</h3>
+            <p class="step-desc">Open the extension popup or use the keyboard shortcut to instantly convert the page.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step animate-on-scroll">
+            <div class="step-number">3</div>
+            <div class="step-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <rect x="8" y="8" width="20" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                <rect x="20" y="16" width="20" height="24" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                <path d="M26 28l3 3 5-5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="12" y1="14" x2="24" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="19" x2="18" y2="19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="12" y1="24" x2="18" y2="24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Copy, paste, or save</h3>
+            <p class="step-desc">Your Markdown is on the clipboard. Paste anywhere or save as a .md file.</p>
+          </div>
+
+        </div>
+
+        <div class="how-it-works-mockup animate-on-scroll">
+          <div class="mockup-screenshot">
+            <div class="mockup-screenshot-titlebar">
+              <span class="mockup-dot mockup-dot--red"></span>
+              <span class="mockup-dot mockup-dot--yellow"></span>
+              <span class="mockup-dot mockup-dot--green"></span>
+              <span class="mockup-screenshot-url">https://example.com/article</span>
+            </div>
+            <div class="mockup-screenshot-body">
+              <div class="mockup-screenshot-sidebar">
+                <div class="mockup-placeholder-line mockup-placeholder-line--short"></div>
+                <div class="mockup-placeholder-line mockup-placeholder-line--short"></div>
+                <div class="mockup-placeholder-line mockup-placeholder-line--short"></div>
+              </div>
+              <div class="mockup-screenshot-content">
+                <div class="mockup-placeholder-line mockup-placeholder-line--heading"></div>
+                <div class="mockup-placeholder-line"></div>
+                <div class="mockup-placeholder-line"></div>
+                <div class="mockup-placeholder-line mockup-placeholder-line--medium"></div>
+                <div class="mockup-placeholder-line"></div>
+                <div class="mockup-placeholder-line mockup-placeholder-line--medium"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. FORMAT COMPARISON SECTION ========== -->
+    <section class="formats" id="formats">
+      <div class="section-container">
+        <h2 class="section-title animate-on-scroll">Works With Your Favorite Tools</h2>
+
+        <div class="formats-grid">
+
+          <!-- Standard -->
+          <div class="format-card animate-on-scroll">
+            <div class="format-card-icon">
+              <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <circle cx="22" cy="22" r="20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <text x="22" y="28" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="16" fill="currentColor">M</text>
+              </svg>
+            </div>
+            <h3 class="format-name">Standard</h3>
+            <ul class="format-card-features">
+              <li>CommonMark compliant</li>
+              <li>Universal compatibility</li>
+              <li>Clean, minimal output</li>
+            </ul>
+            <pre class="code-block"><code># Article Title
+
+A paragraph with **bold**
+and *italic* text.
+
+- List item one
+- List item two</code></pre>
+          </div>
+
+          <!-- Obsidian -->
+          <div class="format-card animate-on-scroll">
+            <div class="format-card-icon">
+              <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <circle cx="22" cy="22" r="20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <polygon points="22,8 32,18 30,34 14,34 12,18" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="format-name">Obsidian</h3>
+            <ul class="format-card-features">
+              <li>YAML frontmatter included</li>
+              <li>Wikilink-ready formatting</li>
+              <li>Vault-friendly file names</li>
+            </ul>
+            <pre class="code-block"><code>---
+title: Article Title
+source: https://example.com
+date: 2025-01-15
+---
+
+# Article Title
+
+Content here...</code></pre>
+          </div>
+
+          <!-- Notion -->
+          <div class="format-card animate-on-scroll">
+            <div class="format-card-icon">
+              <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <circle cx="22" cy="22" r="20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="14" y="12" width="16" height="20" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="18" y1="17" x2="26" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="18" y1="22" x2="26" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="18" y1="27" x2="23" y2="27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="format-name">Notion</h3>
+            <ul class="format-card-features">
+              <li>Optimized for Notion paste</li>
+              <li>Toggle and callout support</li>
+              <li>Clean block structure</li>
+            </ul>
+            <pre class="code-block"><code># Article Title
+
+> Source: https://example.com
+
+A paragraph with **bold**
+and *italic* text.
+
+- [ ] Task item</code></pre>
+          </div>
+
+          <!-- GitHub -->
+          <div class="format-card animate-on-scroll">
+            <div class="format-card-icon">
+              <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+                <circle cx="22" cy="22" r="20" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="22" cy="18" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M19 17v3c0 1 0.5 2 1.5 2h3c1 0 1.5-1 1.5-2v-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M12 34c0-5 4-8 10-8s10 3 10 8" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="format-name">GitHub</h3>
+            <ul class="format-card-features">
+              <li>GFM table syntax</li>
+              <li>Task list support</li>
+              <li>Fenced code with language hints</li>
+            </ul>
+            <pre class="code-block"><code># Article Title
+
+| Column A | Column B |
+| -------- | -------- |
+| Data 1   | Data 2   |
+
+```js
+console.log("hello");
+```</code></pre>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 6. PRIVACY & TRUST SECTION ========== -->
+    <section class="privacy-trust" id="privacy">
+      <div class="section-container">
+        <h2 class="section-title animate-on-scroll">Your Privacy Matters</h2>
+        <p class="big-statement animate-on-scroll">Zero data leaves your browser. <span class="accent">Ever.</span></p>
+
+        <div class="trust-grid">
+
+          <div class="trust-card animate-on-scroll">
+            <div class="trust-card-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <rect x="16" y="20" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M18 20v-4a6 6 0 0112 0v4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <circle cx="24" cy="26" r="2" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="trust-card-title">100% Local Processing</h3>
+            <p class="trust-card-desc">Everything runs in your browser. No servers, no APIs, no cloud processing. Your data never leaves your machine.</p>
+          </div>
+
+          <div class="trust-card animate-on-scroll">
+            <div class="trust-card-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="24" cy="18" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <path d="M14 36c0-6 4-10 10-10s10 4 10 10" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <line x1="30" y1="14" x2="36" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="36" y1="14" x2="30" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="trust-card-title">No Accounts Required</h3>
+            <p class="trust-card-desc">No sign-up, no login, no email. Install and start using immediately. No personal information collected.</p>
+          </div>
+
+          <div class="trust-card animate-on-scroll">
+            <div class="trust-card-icon">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="18" cy="20" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="30" cy="20" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <circle cx="24" cy="32" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                <line x1="21" y1="22" x2="27" y2="18" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="20" y1="24" x2="22" y2="30" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="28" y1="24" x2="26" y2="30" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="trust-card-title">Open Source</h3>
+            <p class="trust-card-desc">Every line of code is public on GitHub. Audit it yourself. We have nothing to hide.</p>
+          </div>
+
+        </div>
+
+        <a href="privacy.html" class="privacy-link">Read our full Privacy Policy &rarr;</a>
+      </div>
+    </section>
+
+    <!-- ========== 7. FAQ SECTION ========== -->
+    <section class="faq" id="faq">
+      <div class="section-container">
+        <h2 class="section-title animate-on-scroll">Frequently Asked Questions</h2>
+
+        <div class="faq-list">
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Is Any Page to MD free?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Yes, Any Page to MD is completely free and open source. There are no premium tiers, no ads, and no hidden costs. The full source code is available on GitHub.</p>
+            </div>
+          </div>
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Does it collect my data?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>No. All processing happens locally in your browser. No data is ever sent to any server. We don't use analytics, trackers, or any external services. Your browsing data stays on your machine.</p>
+            </div>
+          </div>
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>What formats does Any Page to MD support?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Standard Markdown, Obsidian-optimized (with YAML frontmatter), Notion-optimized, and GitHub Flavored Markdown (GFM). Each format is tailored for the best experience with that particular tool.</p>
+            </div>
+          </div>
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Does it work on every website?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Any Page to MD works on virtually any webpage. It can handle articles, documentation, blog posts, and even complex pages with tables and code blocks. Chrome-internal pages (chrome://) are restricted by browser security, but everything else is fair game.</p>
+            </div>
+          </div>
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>Can I convert just part of a page?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Yes! Simply highlight the text you want to convert, then use the extension popup, keyboard shortcut (Ctrl+Shift+M), or right-click context menu. Only the selected portion will be converted to Markdown.</p>
+            </div>
+          </div>
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>What is Reader Mode?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>Reader Mode uses Mozilla's Readability library (the same technology behind Firefox Reader View) to extract just the main content from a page. It automatically removes ads, navigation menus, sidebars, and other clutter, giving you clean, focused Markdown.</p>
+            </div>
+          </div>
+
+          <div class="faq-item animate-on-scroll">
+            <button class="faq-question" type="button" aria-expanded="false">
+              <span>How do I set a keyboard shortcut?</span>
+              <svg class="faq-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <polyline points="5,8 10,13 15,8" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="faq-answer" hidden>
+              <p>The default shortcut is Ctrl+Shift+M (Cmd+Shift+M on Mac). You can customize it by going to <code>chrome://extensions/shortcuts</code> in your browser's address bar and setting your preferred key combination for "Any Page to MD."</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 8. CTA BANNER ========== -->
+    <section class="cta-banner" id="cta-banner">
+      <div class="section-container">
+        <div class="cta-banner-inner">
+          <h2 class="cta-banner-title">Ready to grab any page as Markdown?</h2>
+          <div class="cta-banner-buttons">
+            <a href="#install" class="btn btn-cta">Add to Chrome &mdash; It's Free</a>
+            <a href="#github" class="btn btn-secondary">Star on GitHub &#9733;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== 9. FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo" aria-label="Any Page to MD — Home">
+            <svg class="footer-logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <rect width="32" height="32" rx="7" fill="#6C3FE8"/>
+              <text x="16" y="22" text-anchor="middle" font-family="Inter, sans-serif" font-weight="700" font-size="14" fill="#FFFFFF">MD</text>
+            </svg>
+            <span class="footer-logo-text">Any Page to MD</span>
+          </a>
+          <span class="footer-version">v1.0.0</span>
+        </div>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="#github">GitHub</a></li>
+            <li><a href="#github">Report Bug</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-made-with">
+          <p>Made with &#9829; for the Markdown community</p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Any Page to MD. All rights reserved.</p>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main Script -->
+  <script src="js/main.js"></script>
+</body>
+</html>

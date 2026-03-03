@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://excitedlemon45.github.io/any-page-to-md/sitemap.xml
