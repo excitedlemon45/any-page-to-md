@@ -151,26 +151,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typingEl) {
     const typingContent = '# Getting Started\n\nThis is **clean Markdown**\nconverted from a webpage.\n\n- Easy to read\n- Easy to copy\n- Works everywhere';
     let charIndex = 0;
-    let typingTimer = null;
 
-    const typeCharacter = () => {
+    const typingTimer = setInterval(() => {
       if (charIndex < typingContent.length) {
-        // Build the displayed text, replacing \n with actual line breaks
         typingEl.textContent = typingContent.substring(0, charIndex + 1);
         charIndex++;
       } else {
-        // Typing complete — pause, then restart
+        // Done — stop typing, hide cursor
         clearInterval(typingTimer);
-        typingTimer = null;
-        setTimeout(() => {
-          charIndex = 0;
-          typingEl.textContent = '';
-          typingTimer = setInterval(typeCharacter, 50);
-        }, 2000);
+        const cursor = document.querySelector('.typing-cursor');
+        if (cursor) cursor.style.display = 'none';
       }
-    };
-
-    typingTimer = setInterval(typeCharacter, 50);
+    }, 50);
   }
 
   // ──────────────────────────────────────────────

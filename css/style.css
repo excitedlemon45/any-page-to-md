@@ -787,7 +787,8 @@ body.menu-open {
   font-size: 0.8125rem;
   line-height: 1.8;
   color: var(--text-secondary);
-  min-height: 200px;
+  height: 220px;
+  overflow: hidden;
 }
 
 .mockup-body .md-hash {
